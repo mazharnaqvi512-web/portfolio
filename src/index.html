@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Syed Mazhar Hussain — Senior Angular Developer</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      (function () {
+        // Kept in sync with StorageService (JSON-encoded values) and
+        // STORAGE_KEYS.themePreference — see src/app/core/services/storage.service.ts.
+        var raw = localStorage.getItem('theme-preference');
+        var stored = null;
+        try {
+          stored = raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          stored = null;
+        }
+        var isDark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

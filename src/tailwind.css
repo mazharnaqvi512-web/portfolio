@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+
+/*
+ * Manual (non-OS) dark mode: `dark:` utilities respond to `data-theme="dark"`
+ * on <html>, which ThemeService (src/app/core/theme/theme.ts) and the
+ * no-FOUC inline script in index.html both control.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  /* ---------------------------------------------------------------------
+   * Typography
+   * ------------------------------------------------------------------- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --text-caption: 0.8125rem; /* 13px */
+  --text-caption--line-height: 1.4;
+  --text-small: 0.875rem; /* 14px */
+  --text-small--line-height: 1.5;
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.6;
+  --text-body-lg: 1.125rem; /* 18px */
+  --text-body-lg--line-height: 1.6;
+  --text-h4: 1.375rem; /* 22px */
+  --text-h4--line-height: 1.3;
+  --text-h3: 1.75rem; /* 28px */
+  --text-h3--line-height: 1.25;
+  --text-h2: 2.5rem; /* 40px */
+  --text-h2--line-height: 1.15;
+  --text-h1: 3.25rem; /* 52px */
+  --text-h1--line-height: 1.1;
+  --text-hero: 4rem; /* 64px */
+  --text-hero--line-height: 1.05;
+  --text-display: 4.75rem; /* 76px */
+  --text-display--line-height: 1;
+
+  /*
+   * Font weights use Tailwind's built-in font-normal/medium/semibold/bold
+   * utilities (400/500/600/700) — already exactly the spec's scale, no
+   * custom --font-weight-* tokens needed.
+   *
+   * Spacing uses Tailwind v4's dynamic scale (base --spacing: 0.25rem,
+   * utilities compute as calc(var(--spacing) * N)) — already produces the
+   * spec's exact scale with no override: p-1=4px p-2=8px p-3=12px p-4=16px
+   * p-5=20px p-6=24px p-8=32px p-10=40px p-12=48px p-16=64px p-20=80px
+   * p-24=96px p-30=120px p-40=160px.
+   */
+
+  /* ---------------------------------------------------------------------
+   * Breakpoints — sm/lg/xl/2xl already match the spec's Tablet/Desktop/
+   * Large/Ultra-Wide boundaries (640/1024/1280/1536). Semantic aliases
+   * below are additive, for templates that want spec-vocabulary variants.
+   * ------------------------------------------------------------------- */
+  --breakpoint-tablet: 640px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-large: 1280px;
+  --breakpoint-ultrawide: 1536px;
+
+  /* ---------------------------------------------------------------------
+   * Containers
+   * ------------------------------------------------------------------- */
+  --container-content: 1280px;
+  --container-wide: 1440px;
+
+  /* ---------------------------------------------------------------------
+   * Radius
+   * ------------------------------------------------------------------- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-card: 20px;
+  --radius-hero: 24px;
+  --radius-pill: 9999px;
+
+  /* ---------------------------------------------------------------------
+   * Z-index scale
+   * ------------------------------------------------------------------- */
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-overlay: 300;
+  --z-index-modal: 400;
+  --z-index-toast: 500;
+  --z-index-tooltip: 600;
+
+  /* ---------------------------------------------------------------------
+   * Easing — used with plain CSS transition-duration custom properties
+   * below (Tailwind v4 has no --duration-* theme namespace).
+   * ------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---------------------------------------------------------------------
+   * Colors — semantic, theme-aware. These are the LIGHT (default) values;
+   * :root[data-theme="dark"] below re-declares the same custom properties
+   * with dark values. Every utility (bg-background, text-text-primary, …)
+   * resolves through var(), so runtime theme switches apply live.
+   * ------------------------------------------------------------------- */
+  --color-background: #ffffff;
+  --color-surface: #fafafa;
+  --color-surface-elevated: #ffffff;
+  --color-surface-hover: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-text-muted: #71717a;
+
+  --color-accent: #4f46e5; /* indigo-600 */
+  --color-accent-hover: #4338ca; /* indigo-700 */
+  --color-accent-subtle: #eef2ff; /* indigo-50 */
+
+  /* ---------------------------------------------------------------------
+   * Shadows — subtle, SaaS-product weight, not heavy. Dark mode gets its
+   * own softer scale below (flat shadows barely read on near-black).
+   * ------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgba(24, 24, 27, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(24, 24, 27, 0.08);
+  --shadow-card: 0 8px 24px -4px rgba(24, 24, 27, 0.1);
+  --shadow-elevated: 0 16px 40px -8px rgba(24, 24, 27, 0.14);
+}
+
+:root[data-theme='dark'] {
+  --color-background: #09090b;
+  --color-surface: #111113;
+  --color-surface-elevated: #18181b;
+  --color-surface-hover: #202023;
+  --color-border: #27272a;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  --color-accent: #818cf8; /* indigo-400, lighter reads better on dark */
+  --color-accent-hover: #a5b4fc; /* indigo-300 */
+  --color-accent-subtle: color-mix(in srgb, #818cf8 16%, transparent);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------------------------------------------------------------------
+ * Transitions — plain CSS custom properties; Tailwind v4 has no
+ * --duration-* theme namespace, so these are consumed via arbitrary-value
+ * utilities (duration-[var(--transition-fast)]) or component CSS.
+ * ------------------------------------------------------------------- */
+:root {
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 400ms;
+  --transition-page: 600ms;
+}
+
+/* ---------------------------------------------------------------------
+ * Global focus-visible ring — keyboard-navigation only, consistent across
+ * every focusable element instead of relying on inconsistent browser
+ * defaults (spec section: accessibility, WCAG 2.4.7).
+ * ------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------
+ * Respect the OS-level reduced-motion preference app-wide, not just on
+ * individual components that opt in (spec section: accessibility, WCAG
+ * 2.3.3).
+ * ------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

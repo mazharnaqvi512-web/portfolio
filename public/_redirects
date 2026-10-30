@@ -1,0 +1,2 @@
+# /github renders in the browser (it calls the live GitHub API), so it has no prerendered page.
+/github  /index.csr.html  200
