@@ -1,8 +1,10 @@
 import { Injectable, inject, signal } from '@angular/core';
 
-import { AI_PROVIDER } from '../../../core/models/ai-provider.model';
+import { AI_PROVIDER, AiProviderError } from '../../../core/models/ai-provider.model';
 import type { ChatMessage } from '../../../core/models/chat-message.model';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+
+const GENERIC_ERROR = 'Something went wrong. Please try again.';
 
 let messageIdCounter = 0;
 function createMessageId(): string {
@@ -89,8 +91,8 @@ export class AiAssistantService {
         ]);
         this._isLoading.set(false);
       },
-      error: () => {
-        this._error.set('Something went wrong. Please try again.');
+      error: (error: unknown) => {
+        this._error.set(error instanceof AiProviderError ? error.message : GENERIC_ERROR);
         this._isLoading.set(false);
       },
     });

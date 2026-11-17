@@ -11,8 +11,9 @@ export const environment: Environment = {
   apiBaseUrl: '',
   githubUsername: '',
   featureFlags: {
-    // aiAssistant is the mock provider (canned answers), so it stays off for
-    // the public launch until a real AI backend replaces it. blog is off
+    // aiAssistant stays off for the public launch: without a backend it only has
+    // the mock provider (canned answers), and the real assistant needs the hosted
+    // backend plus an API key (apiBaseUrl set; see portfolio-api). blog is off
     // until the first article exists (hides the nav link; the page would
     // otherwise be an empty state). testimonials/analytics/booking have no
     // feature behind them yet (or, for analytics, no provider chosen yet).

@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:dist": "node scripts/serve-dist.mjs",
+    "export:content": "node scripts/export-content.mjs",
     "lint": "ng lint",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
     "prepare": "husky"

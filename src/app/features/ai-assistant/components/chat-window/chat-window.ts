@@ -74,6 +74,7 @@ import { TypingIndicator } from '../typing-indicator/typing-indicator';
           name="message"
           placeholder="Ask a question..."
           aria-label="Message"
+          maxlength="1000"
           [disabled]="aiAssistantService.isLoading()"
           class="flex-1 rounded-pill border border-border bg-background px-3 py-2 text-small text-text-primary focus:border-accent focus:outline-none"
         />

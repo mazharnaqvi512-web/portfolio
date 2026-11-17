@@ -7,7 +7,9 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { AppPreset } from './core/theme/app-preset';
 import { AI_PROVIDER } from './core/models/ai-provider.model';
+import { ApiAiProvider } from './features/ai-assistant/providers/api-ai-provider';
 import { MockAiProvider } from './features/ai-assistant/providers/mock-ai-provider';
+import { selectAiProvider } from './features/ai-assistant/providers/select-ai-provider';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
@@ -20,7 +22,9 @@ export const appConfig: ApplicationConfig = {
     // scoping it the way GithubService's route used to wouldn't work there.
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    { provide: AI_PROVIDER, useClass: MockAiProvider },
+    ApiAiProvider,
+    MockAiProvider,
+    { provide: AI_PROVIDER, useFactory: selectAiProvider },
     providePrimeNG({
       theme: {
         preset: AppPreset,

@@ -13,3 +13,12 @@ export interface AiProvider {
 }
 
 export const AI_PROVIDER = new InjectionToken<AiProvider>('AI_PROVIDER');
+
+/**
+ * A failure a provider has already turned into something worth showing the visitor: its
+ * `message` is user-facing copy, not a technical error. Anything else a provider throws is
+ * shown as a generic "something went wrong".
+ */
+export class AiProviderError extends Error {
+  override readonly name = 'AiProviderError';
+}
