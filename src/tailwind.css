@@ -106,6 +106,8 @@
   --color-accent: #4f46e5; /* indigo-600 */
   --color-accent-hover: #4338ca; /* indigo-700 */
   --color-accent-subtle: #eef2ff; /* indigo-50 */
+  /* Text on an accent-coloured surface (buttons, selected chips): white on indigo-600 is 6.3:1. */
+  --color-on-accent: #ffffff;
 
   /* ---------------------------------------------------------------------
    * Shadows — subtle, SaaS-product weight, not heavy. Dark mode gets its
@@ -125,11 +127,14 @@
   --color-border: #27272a;
   --color-text-primary: #fafafa;
   --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  /* 4.7:1 or better on every dark surface (the old #71717a was 3.4-4.1:1), still dimmer than secondary. */
+  --color-text-muted: #8a8a94;
 
   --color-accent: #818cf8; /* indigo-400, lighter reads better on dark */
   --color-accent-hover: #a5b4fc; /* indigo-300 */
   --color-accent-subtle: color-mix(in srgb, #818cf8 16%, transparent);
+  /* White on indigo-400 is only 3.0:1, so dark mode puts near-black text on the light accent (6.7:1). */
+  --color-on-accent: #09090b;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4);

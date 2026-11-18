@@ -48,7 +48,10 @@ export const AppPreset = definePreset(Aura, {
       light: {
         primary: {
           color: 'var(--color-accent)',
-          contrastColor: '#ffffff',
+          // PrimeNG only ever reads this "light" scheme (darkModeSelector is off), so the text on a
+          // primary button has to flip with the theme through a CSS variable, not through the
+          // "dark" block below. White on the light dark-mode accent was only 3.0:1.
+          contrastColor: 'var(--color-on-accent)',
           hoverColor: 'var(--color-accent-hover)',
           activeColor: 'var(--color-accent-hover)',
         },
@@ -67,7 +70,7 @@ export const AppPreset = definePreset(Aura, {
       dark: {
         primary: {
           color: 'var(--color-accent)',
-          contrastColor: 'var(--color-background)',
+          contrastColor: 'var(--color-on-accent)',
           hoverColor: 'var(--color-accent-hover)',
           activeColor: 'var(--color-accent-hover)',
         },
@@ -81,6 +84,18 @@ export const AppPreset = definePreset(Aura, {
           background: 'var(--color-surface)',
           hoverBackground: 'var(--color-surface-hover)',
           borderColor: 'var(--color-border)',
+        },
+      },
+    },
+  },
+  components: {
+    // The theme switch's unselected labels were #64748b on #f1f5f9 (4.3:1); surface.600 is 6.9:1.
+    togglebutton: {
+      colorScheme: {
+        light: {
+          root: {
+            color: '{surface.600}',
+          },
         },
       },
     },

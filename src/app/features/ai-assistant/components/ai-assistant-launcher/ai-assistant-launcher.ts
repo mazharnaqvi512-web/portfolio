@@ -18,7 +18,7 @@ import { ChatWindow } from '../chat-window/chat-window';
         type="button"
         (click)="aiAssistantService.toggle()"
         [attr.aria-label]="aiAssistantService.isOpen() ? 'Close AI assistant' : 'Ask about Mazhar'"
-        class="flex size-14 items-center justify-center rounded-pill bg-accent text-h4 text-white shadow-elevated transition-transform hover:scale-105"
+        class="flex size-14 items-center justify-center rounded-pill bg-accent text-h4 text-on-accent shadow-elevated transition-transform hover:scale-105"
       >
         <i [class]="aiAssistantService.isOpen() ? 'pi pi-times' : 'pi pi-comments'"></i>
       </button>

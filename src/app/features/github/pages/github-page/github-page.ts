@@ -92,7 +92,7 @@ const MIN_REPOS_FOR_CONTROLS = 2;
                         class="shrink-0 rounded-pill border px-3 py-1.5 text-caption font-medium transition-colors"
                         [class]="
                           sortBy() === option.value
-                            ? 'border-accent bg-accent text-white'
+                            ? 'border-accent bg-accent text-on-accent'
                             : 'border-border bg-surface text-text-secondary hover:text-text-primary'
                         "
                         [attr.aria-pressed]="sortBy() === option.value"
@@ -114,7 +114,7 @@ const MIN_REPOS_FOR_CONTROLS = 2;
                         class="shrink-0 rounded-pill border px-3 py-1.5 text-caption font-medium transition-colors"
                         [class]="
                           languageFilter() === 'all'
-                            ? 'border-accent bg-accent text-white'
+                            ? 'border-accent bg-accent text-on-accent'
                             : 'border-border bg-surface text-text-secondary hover:text-text-primary'
                         "
                         [attr.aria-pressed]="languageFilter() === 'all'"
@@ -128,7 +128,7 @@ const MIN_REPOS_FOR_CONTROLS = 2;
                           class="shrink-0 rounded-pill border px-3 py-1.5 text-caption font-medium transition-colors"
                           [class]="
                             languageFilter() === language
-                              ? 'border-accent bg-accent text-white'
+                              ? 'border-accent bg-accent text-on-accent'
                               : 'border-border bg-surface text-text-secondary hover:text-text-primary'
                           "
                           [attr.aria-pressed]="languageFilter() === language"

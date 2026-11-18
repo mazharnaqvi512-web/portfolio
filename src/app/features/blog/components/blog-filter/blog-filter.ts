@@ -38,7 +38,7 @@ const FILTER_OPTIONS: readonly FilterOption[] = [
           class="shrink-0 rounded-pill border px-4 py-2 text-small font-medium transition-colors"
           [class]="
             selected() === option.value
-              ? 'border-accent bg-accent text-white'
+              ? 'border-accent bg-accent text-on-accent'
               : 'border-border bg-surface text-text-secondary hover:text-text-primary'
           "
           [attr.aria-pressed]="selected() === option.value"

@@ -82,7 +82,7 @@ import { TypingIndicator } from '../typing-indicator/typing-indicator';
           type="submit"
           [disabled]="aiAssistantService.isLoading() || !draft.trim()"
           aria-label="Send message"
-          class="flex size-9 shrink-0 items-center justify-center rounded-pill bg-accent text-white disabled:opacity-50"
+          class="flex size-9 shrink-0 items-center justify-center rounded-pill bg-accent text-on-accent disabled:opacity-50"
         >
           <i class="pi pi-send"></i>
         </button>
