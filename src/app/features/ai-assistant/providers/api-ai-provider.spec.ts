@@ -137,6 +137,34 @@ describe('ApiAiProvider', () => {
       expect((error as Error).message).toContain('shorter');
     });
 
+    it('gives up with a friendly message when the backend never answers', async () => {
+      vi.useFakeTimers();
+      try {
+        const error = await failureOf(send(), () => vi.advanceTimersByTime(75_001));
+
+        expect(error).toBeInstanceOf(AiProviderError);
+        expect((error as Error).message).toContain('taking too long');
+        expect(http.expectOne(URL).cancelled).toBe(true);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('does not cut off a backend that answers slowly but within the limit', async () => {
+      vi.useFakeTimers();
+      try {
+        const answer = firstValueFrom(send());
+        vi.advanceTimersByTime(60_000);
+        http
+          .expectOne(URL)
+          .flush({ data: { reply: 'Slow but fine.' }, success: true, message: null, errors: null });
+
+        expect(await answer).toBe('Slow but fine.');
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
     it("shows the backend's own wording for a 429", async () => {
       const error = await failureOf(
         send(),

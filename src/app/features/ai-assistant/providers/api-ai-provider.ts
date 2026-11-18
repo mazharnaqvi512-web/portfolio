@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { type Observable, catchError, map, throwError } from 'rxjs';
+import { type Observable, catchError, map, throwError, timeout } from 'rxjs';
 
 import { API_BASE_URL } from '../../../core/config/api-config';
 import { type AiProvider, AiProviderError } from '../../../core/models/ai-provider.model';
@@ -10,6 +10,9 @@ import type { ChatMessage, ChatMessageRole } from '../../../core/models/chat-mes
 /** The backend rejects anything beyond these (see ChatRequest in portfolio-api), so stay inside them. */
 const MAX_MESSAGES = 10;
 const MAX_MESSAGE_LENGTH = 1000;
+
+/** Just over the backend's worst case (30 s timeout, one retry), so its own error normally arrives first. */
+const REQUEST_TIMEOUT_MS = 75_000;
 
 interface ChatTurn {
   readonly role: ChatMessageRole;
@@ -38,6 +41,18 @@ export class ApiAiProvider implements AiProvider {
       })
       .pipe(
         map((response) => response.data.reply),
+        // A safety net for a hung connection, not the expected path: the backend answers or fails
+        // on its own well inside this (30 s timeout x 2 attempts), so waiting longer means it is stuck.
+        timeout({
+          first: REQUEST_TIMEOUT_MS,
+          with: () =>
+            throwError(
+              () =>
+                new AiProviderError(
+                  'The assistant is taking too long to answer. Please try again.',
+                ),
+            ),
+        }),
         catchError((error: unknown) => throwError(() => toProviderError(error))),
       );
   }
